@@ -16,6 +16,10 @@ namespace BinaryTree
             x.Add(30);
             x.Add(70);
             x.Add(20);
+            x.Add(55);
+            x.Add(45);
+            x.Add(56);
+            x.Add(54);
             x.PrintTree();
             Console.WriteLine(x.Find(50).Value);
         }
@@ -36,16 +40,16 @@ namespace BinaryTree
     class BinaryTree
     {
         TreeNode head;
-        
+
         public BinaryTree(int value)
         {
             head = new TreeNode(value);
         }
-        public BinaryTree() : this(50) {}
+        public BinaryTree() : this(50) { }
 
         public bool IsEmpty()
         {
-            if(head == null)
+            if (head == null)
             {
                 return true;
             }
@@ -56,8 +60,8 @@ namespace BinaryTree
         }
         public void Add(int value)
         {
-            
-            if(IsEmpty())
+
+            if (IsEmpty())
             {
                 TreeNode newTreeNode = new TreeNode(value);
                 head = newTreeNode;
@@ -68,30 +72,30 @@ namespace BinaryTree
             }
         }
 
-        private void RecAdd(TreeNode temp,int value)
+        private void RecAdd(TreeNode temp, int value)
         {
-            
-            if (temp==null)
+
+            if (temp == null)
             {
-                
+
                 return;
             }
-            else if(value > temp.Value&& temp.Right!=null)
+            else if (value > temp.Value && temp.Right != null)
             {
                 RecAdd(temp.Right, value);
             }
-            else if(value < temp.Value && temp.Left != null)
+            else if (value < temp.Value && temp.Left != null)
             {
                 RecAdd(temp.Left, value);
             }
-            else if(value > temp.Value && temp.Right == null)
+            else if (value > temp.Value && temp.Right == null)
             {
                 TreeNode newTreeNode = new TreeNode(value);
                 temp.Right = newTreeNode;
                 newTreeNode.Parent = temp;
                 return;
             }
-            else if(value < temp.Value && temp.Left == null)
+            else if (value < temp.Value && temp.Left == null)
             {
                 TreeNode newTreeNode = new TreeNode(value);
                 temp.Left = newTreeNode;
@@ -102,80 +106,77 @@ namespace BinaryTree
 
         public void PrintTree()
         {
-            
+
             Console.WriteLine("Tree : ");
-            if(head == null)
+            if (head == null)
             {
                 Console.WriteLine("Null");
             }
             else
             {
-                Console.WriteLine(head.Value + " , ");
-                for(TreeNode i = head.Right;i!=null;i=i.Right)
-                {
-                    Console.WriteLine(i.Value + " , ");
-                    for(TreeNode j = i, z =i;j!=null&&z!=null;j=j.Right,z=z.Left)
-                    {
-                        if(j!=i&&z!=i)
-                        {
-                            Console.WriteLine(z.Value + " , " + j.Value + " , ");
-                        }
-                    }
-                }
-                for (TreeNode i = head.Left; i != null; i = i.Left)
-                {
-                    Console.WriteLine(i.Value + " , ");
-                    for (TreeNode j = i, z = i; j != null && z != null; j = j.Right, z = z.Left)
-                    {
-                        if (j != i && z != i)
-                        {
-                            Console.WriteLine(z.Value + " , " + j.Value + " , ");
-                        }
-                    }
-                }
-                //Print(head);
+                //Console.WriteLine(head.Value + " , ");
+                //for (TreeNode i = head.Right; i != null; i = i.Right)
+                //{
+                //    Console.WriteLine(i.Value + " , ");
+                //    for (TreeNode j = i, z = i; j != null && z != null; j = j.Right, z = z.Left)
+                //    {
+                //        if (j != i && z != i)
+                //        {
+                //            Console.WriteLine(z.Value + " , " + j.Value + " , ");
+                //        }
+                //    }
+                //}
+                //for (TreeNode i = head.Left; i != null; i = i.Left)
+                //{
+                //    Console.WriteLine(i.Value + " , ");
+                //    for (TreeNode j = i, z = i; j != null && z != null; j = j.Right, z = z.Left)
+                //    {
+                //        if (j != i && z != i)
+                //        {
+                //            Console.WriteLine(z.Value + " , " + j.Value + " , ");
+                //        }
+                //    }
+                //}
+                Print(head);
             }
 
         }
         private void Print(TreeNode node)
         {
-            if(node == head)
+            if(node == null)
             {
-                Console.Write("head = "+head.Value +" , ");
-                Print(head.Right);
-                Print(head.Left);
+                return;
             }
-            else
-            {
-                Console.Write(node.Value + " , ");
-                Print(head.Right);
-                Print(head.Left);
-            }
+
+            Console.WriteLine(node.Value + " ");
+            Print(node.Right);
+            Print(node.Left);
+
         }
 
         public TreeNode Find(int valueToFind)
         {
-            if(head==null)
+            if (head == null)
             {
                 return null;
             }
-            else if(head.Value == valueToFind)
+            else if (head.Value == valueToFind)
             {
                 return head;
             }
             else
             {
-                for(TreeNode i=head;i!=null;)
+                for (TreeNode i = head; i != null;)
                 {
-                    if(valueToFind > i.Value)
+                    if (valueToFind > i.Value)
                     {
                         i = i.Right;
                     }
-                    else if(valueToFind < i.Value)
+                    else if (valueToFind < i.Value)
                     {
                         i = i.Left;
                     }
-                    else if(valueToFind == i.Value)
+                    else if (valueToFind == i.Value)
                     {
                         return i;
                     }
